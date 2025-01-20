@@ -29,7 +29,7 @@ const TransitionEffect = ({ children }) => {
     <div className="effect-1">
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
-          key={router.asPath} {/* Ensure the key changes based on the path */}
+          key={router.asPath} // Ensure the key changes based on the path
           variants={variants}
           animate="in"
           initial="out"

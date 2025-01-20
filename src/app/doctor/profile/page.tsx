@@ -21,7 +21,7 @@ import { SelectButton } from 'primereact/selectbutton';
 import { Panel } from 'primereact/panel';
 import { Dialog } from 'primereact/dialog';
 
-export default function page() {
+export default function Page() {
 
     const [imageSrc, setImageSrc] = useState("/images/rvw1.webp");
   const handleFileChange = (e) => {

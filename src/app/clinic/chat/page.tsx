@@ -12,7 +12,7 @@ import { Sidebar } from "primereact/sidebar";
 import { OverlayPanel } from "primereact/overlaypanel";
 import LeftSideBar from "../components/LeftSideBar/LeftSideBar";
 
-export default function page() {
+export default function Page() {
     const isMobile = useMobile();
     const[sidebarVisible, setSidebarVisible]=useState(false);
     const op = useRef(null);

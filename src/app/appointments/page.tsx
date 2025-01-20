@@ -113,7 +113,7 @@ export default function Page() {
             numScroll: 1
         }
       ];
-      const doctTemplate = (doct) => {
+      const doctTemplate = (doct:any) => {
         return (
             <div className="p-2 bg-white rounded-md mx-1">
                 <div className="flex gap-2 items-center">
@@ -159,12 +159,10 @@ export default function Page() {
         </>
     );
 
-    const [value, setValue] = useState('');
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState<string[]>([]);  // Explicitly define items as string[]
 
-    const search = (event) => {
-        setItems([...Array(10).keys()].map(item => event.query + '-' + item));
-    }
+// Function to handle the search event
+
 
     const menu = useRef(null);
     const shortitems = [

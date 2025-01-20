@@ -11,7 +11,7 @@ import { Button } from "primereact/button";
 import { Sidebar } from "primereact/sidebar";
 import { OverlayPanel } from "primereact/overlaypanel";
 
-export default function page() {
+export default function Page() {
     const isMobile = useMobile();
     const op = useRef(null);
 

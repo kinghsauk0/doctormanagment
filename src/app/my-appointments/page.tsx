@@ -12,7 +12,7 @@ import { Sidebar } from "primereact/sidebar";
 import { Dialog } from "primereact/dialog";
 import { Dropdown } from "primereact/dropdown";
 
-export default function page() {
+export default function Page() {
     const isMobile = useMobile();
     const [visible, setVisible] = useState(false);
 
