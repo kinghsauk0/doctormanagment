@@ -1,0 +1,12 @@
+.forappiobtn{
+    &:hover{
+        background-color: #0D52AF;
+        border-color: #0D52AF;
+        .text-base{
+            color: #fff;
+        }
+        .text-10px{
+            color: #fff;
+        }
+    }
+}

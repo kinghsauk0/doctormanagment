@@ -1,0 +1,26 @@
+.docHeader {
+    .p-menubar{
+        padding: 0;
+        background-color: rgba(0,0,0,0);
+        border: none;
+    }
+    @media screen and (max-width: 992px) {
+        .p-menubar-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .p-menubar-root-list{
+            position: fixed;
+            left: 0;
+            top: 57px;
+            width: 100%;
+        }
+        .dochdrlogo{
+            img{
+                width: 180px;
+                height: auto;
+            }
+        }
+    }
+}

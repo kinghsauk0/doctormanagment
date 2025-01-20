@@ -1,0 +1,212 @@
+@media screen and (max-width: 767px) {
+    .mobfilteradjustable{
+        .p-inputtext{
+            max-width: 78px;
+            font-size: 12px;
+        }
+        .headercalender{
+            .p-button{
+                max-width: 30px;
+            }
+        }
+        .p-dropdown-trigger{
+            width: 30px;
+        }
+        .p-button-label{
+            font-size: 12px;
+            white-space: nowrap;
+        }
+    }
+}
+.mobfilteradjustable{
+    .p-dropdown-label.p-inputtext{
+        font-size: 14px;
+    }
+}
+.activityprogress{
+    .p-progressbar-value{
+        background-color: #2280DE;
+        .p-progressbar-label{
+            display: none;
+        }
+    }
+}
+.appotimeline{
+    .p-timeline-event-opposite{
+        display: none;
+    }
+    .p-timeline-event-separator{
+        display: flex;
+        flex-direction: row;
+        align-items: start;
+        .p-timeline-event-connector{
+            height: 100%;
+            min-width: 2px;
+        }
+    }
+    .appotimeinfo{
+        position: relative;
+        left: 8px;
+    }
+    .p-timeline-event-content{
+        padding-bottom: 10px;
+    }
+    .statusico{
+        i{
+            padding: 5px;
+            font-size: 10px;
+            height: 20px;
+            width: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 0;
+        }
+    }
+}
+
+.data-text__value {
+    font-size: 20px;
+    transform: translateY(-0.5rem);
+    opacity: 0;
+    font-weight: 600;
+    -webkit-transition: all 400ms;
+    -moz-transition: all 400ms;
+    -ms-transition: all 400ms;
+    -o-transition: all 400ms;
+}
+.data-text__name {
+    font-size: 14px;
+    transform: translateY(0.5rem);
+    opacity: 0;
+}
+.data-text--show {
+    transform: translateY(-26px);
+    -webkit-animation: fadeGraphTextIn 0.5s forwards;
+    animation: fadeGraphTextIn 0.5s forwards;
+}
+@-webkit-keyframes fadeGraphTextIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fadeGraphTextIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .calBox {
+    padding: 0;
+    text-align: center;
+    color: #666;
+    .calYear {
+        font-size: 20px;
+        border-bottom: 1px dashed #ccc;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        .calElement {
+            min-width: 32.5%;
+            max-width: 32.5%;
+            width: 32.5% !important;
+            line-height: 2.5;
+            border-radius: 4px;
+            background-color: #fff;
+            cursor: pointer;
+            &.selected{
+                background-color: #0D52AF;
+                color: #fff;
+            }
+            &:hover{
+                background-color: #0D52AF;
+                color: #fff;
+            }
+        }
+    }
+    .calMonth {
+        border-bottom: 1px dashed #ccc;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+        .calElement {
+            font-size: 14px;
+            min-width: 13.5%;
+            max-width: 13.5%;
+            width: 13.5% !important;
+            line-height: 2.5;
+            border-radius: 4px;
+            background-color: #fff;
+            cursor: pointer;
+            &.selected{
+                background-color: #0D52AF;
+                color: #fff;
+            }
+            &:hover{
+                background-color: #0D52AF;
+                color: #fff;
+            }
+        }
+    }
+    .calDay {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        .calElement {
+            font-size: 12px;
+            min-width: 12%;
+            max-width: 12%;
+            width: 12% !important;
+            padding: 0 5px 5px 5px;
+            border-radius: 4px;
+            background-color: #fff;
+            cursor: pointer;
+            &.prev {
+                background-image: url(/images/prev.svg);
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: 15px auto;
+                background-color: rgba(0,0,0,0) !important;
+                width: 20px;
+                max-width: 20px;
+                min-width: 20px;
+                height: 35px;
+                cursor: pointer;
+            }
+            &.next {
+                background-image: url(/images/next.svg);
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: 15px auto;
+                background-color: rgba(0,0,0,0) !important;
+                width: 20px;
+                max-width: 20px;
+                min-width: 20px;
+                height: 35px;
+                cursor: pointer;
+            }
+            &.selected{
+                background-color: #0D52AF;
+                color: #fff;
+            }
+            &:hover{
+                background-color: #0D52AF;
+                color: #fff;
+            }
+            .dayNumber {
+                font-size: 20px;
+            }
+        }
+    }
+    
+}

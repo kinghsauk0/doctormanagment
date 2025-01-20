@@ -1,0 +1,17 @@
+.ftrmnu{
+    list-style: none;
+    li{
+        a{
+            color: #222;
+            font-size: 14px;
+            display: flex;
+            gap:5px;
+            align-items: center;
+        }
+    }
+}
+.footerlinks{
+    a{
+        color: #222;
+    }
+}

@@ -1,0 +1,429 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  uid        String   @unique
+  email      String   @unique
+  mobile     String   @unique
+  isVerified Boolean  @default(false)
+  password   String
+  status     Status?  @default(active)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  doctor     Doctor?  @relation("UserDoctor") 
+}
+
+model TempDoctor {
+  id          Int          @id @default(autoincrement())
+  uid         String       @unique
+  name        String
+  email       String       @unique
+  password    String
+  mobile      String       @unique
+  image       String?
+  gender      String?
+  dateOfBirth DateTime
+  address     String?      @db.Text
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @updatedAt
+  resetToken  ResetToken[]
+}
+
+model ResetToken {
+  id           Int         @id @default(autoincrement())
+  uid          String      @unique
+  email        String      @unique
+  otp          String
+  token        String      @unique
+  isVerified   Boolean     @default(false)
+  verifiedAt   DateTime?
+  expiresAt    DateTime
+  createdAt    DateTime    @default(now())
+  TempDoctorId String?
+  TempDoctor   TempDoctor? @relation(fields: [TempDoctorId], references: [uid])
+}
+
+model Doctor {
+  id                  Int                    @id @default(autoincrement())
+  uid                 String                 @unique
+  name                String
+  email               String                 @unique
+  mobile              String                 @unique
+  image               String?
+  gender              String?
+  dateOfBirth         DateTime
+  address             String?                @db.Text
+  medicalRegistration String?
+  medicalCouncil      String?
+  status              Status?  @default(active)
+  qualifications      DoctorQualification[]  @relation("DoctorQualifications")
+  specialization      DoctorSpecialization[] @relation("DoctorSpecialization")
+  documents           DoctorDocument[]
+  created_at          DateTime               @default(now())
+  updated_at          DateTime               @updatedAt
+  userId              String                  @unique 
+  user                User?                  @relation("UserDoctor", fields: [userId], references: [uid])        
+  patients            Patient[]       
+  eprescription       EPrescription[]
+  Clinic                Clinic[]
+}
+
+model DoctorQualification {
+  id                       Int    @id @default(autoincrement())
+  uid                      String @unique
+  qualificationName        String
+  qualificationDescription String?
+  doctorId                 String
+  doctor                   Doctor @relation("DoctorQualifications", fields: [doctorId], references: [uid])
+}
+
+model DoctorSpecialization {
+  id                        Int    @id @default(autoincrement())
+  uid                       String @unique
+  specializationName        String
+  specializationDescription String?
+  doctorId                  String
+  doctor                    Doctor @relation("DoctorSpecialization", fields: [doctorId], references: [uid])
+}
+
+model DoctorDocument {
+  id         Int      @id @default(autoincrement())
+  uid        String   @unique
+  fileName   String
+  fileType   String
+  fileUrl    String
+  fileSize   Int
+  uploadedAt DateTime @default(now())
+  doctorId   String
+  doctor     Doctor   @relation(fields: [doctorId], references: [uid])
+}
+
+
+
+model DoctorExperience {
+  id           Int       @id @default(autoincrement())
+  uid          String    @unique
+  JobTitle     String
+  Organization String
+  StartDate    DateTime
+  EndDate      DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+
+model Clinic {
+   id           Int       @id @default(autoincrement())
+   uid          String    @unique
+   clinicName   String
+   clinicSpecialization String
+   pinCode       String
+   gps           Json?
+   select         Select? @default(active)
+   documents         ClinicDocument[]
+   doctorId          String @unique
+   doctor             Doctor?            @relation(fields: [doctorId], references: [uid])
+   createdAt         DateTime  @default(now())
+   updatedAt         DateTime  @updatedAt
+   schedule          ClinicSchedule[] @relation
+}
+
+model ClinicSchedule {
+  id           Int       @id @default(autoincrement())
+  uid          String    @unique
+  availabilityDays Json
+  timeFrom     String
+  timeTo       String
+  visitingType  String
+  doctorId       String
+  clinicId       String
+  clinic         Clinic    @relation(fields: [clinicId], references: [uid])
+}
+
+model ClinicDocument {
+  id         Int      @id @default(autoincrement())
+  uid        String   @unique
+  fileName   String
+  fileType   String
+  fileUrl    String
+  fileSize   Int
+  uploadedAt DateTime @default(now())
+  clinicId   String
+  clinic   Clinic   @relation(fields: [clinicId], references: [uid])
+}
+
+
+model Patient {
+  id          Int      @id @default(autoincrement())
+  uid         String   @unique
+  fristName   String
+  lastName    String
+  dateOfBirth String
+  email       String  @unique
+  age         String
+  gender      String
+  weight      String
+  mobile      String
+  status      Status?   @default(active)
+  doctorId    String      
+  allergies       PatientAllergies? 
+  medicalHistory  MedicalHistory [] 
+  habit           Habit[]
+  complaint       Complaint[]
+  eprescription   EPrescription[]
+  finding         Finding[]
+  diagnosis       Diagnosis[]
+  investigation   Investigation[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deleted_at        DateTime?
+  doctor          Doctor  @relation(fields: [doctorId], references: [uid])
+}
+
+
+
+
+model PatientAllergies  {
+  id          Int      @id @default(autoincrement())
+  uid         String   @unique
+  environmentalAllergie String @db.Text
+  foodAllergie          String  @db.Text
+  drugAllergie          String  @db.Text
+  othersAllergies       String  @db.Text
+  patientId            String      @unique  
+  patient              Patient  @relation(fields: [patientId], references: [uid])
+}
+
+model MedicalHistory{
+  id          Int      @id @default(autoincrement())
+  uid         String   @unique
+  duration    String
+  related     String
+  patientId   String
+  diseaseName String      
+  patient              Patient  @relation(fields: [patientId], references: [uid])
+}
+
+
+model Habit{
+  id                   Int      @id @default(autoincrement())
+  uid                String   @unique
+  frequency          String
+  duration           String
+  patientId            String
+  habitName           String      
+  patient              Patient  @relation(fields: [patientId], references: [uid])
+}
+
+
+model  PatientDocument {
+  id         Int      @id @default(autoincrement())
+  uid        String   @unique
+  fileName   String
+  fileType   String
+  fileUrl    String
+  fileSize   Int
+  uploadedAt DateTime @default(now())
+}
+
+
+model EPrescription {
+  id         Int      @id @default(autoincrement())
+  uid        String   @unique
+  patientId  String
+  patient    Patient @relation(fields: [patientId], references: [uid])
+  doctorId   String
+  doctor     Doctor   @relation(fields: [doctorId], references: [uid])
+  complaint       Complaint[]
+  finding         Finding[]
+  investigation   Investigation[]
+  diagnosis       Diagnosis[]
+  medicine        Medicine[]
+  prescribedDate  DateTime        @default(now())
+  labTest         LabTest[]
+  advice          Advice[]
+  note             Note[]
+  followUp       FollowUp?    @relation("EPrescriptionFollowUp")
+  prescribtionSatus         PrescribtionSatus @default(success)
+}
+
+model Complaint{
+  id         Int      @id @default(autoincrement())
+  uid        String   @unique
+  complaintName String
+  duration      String
+  preiod        String
+  complaintAt   DateTime?
+   patientId   String    
+  patient              Patient  @relation(fields: [patientId], references: [uid])
+  eprescriptionId String?
+  eprescription  EPrescription? @relation(fields: [eprescriptionId], references: [uid])
+}
+
+
+model Finding {
+  id         Int      @id @default(autoincrement())
+  uid        String   @unique
+  findingName String
+  reading     String?
+  findingDocument FindingDocument[]
+  eprescriptionId String?
+  patientId   String ?   
+  patient              Patient?  @relation(fields: [patientId], references: [uid])
+  eprescription  EPrescription? @relation(fields: [eprescriptionId], references: [uid])
+}
+model FindingDocument {
+  id         Int      @id @default(autoincrement())
+  uid        String   @unique
+  fileName   String
+  fileType   String
+  fileUrl    String
+  fileSize   Int
+  uploadedAt DateTime @default(now())
+  FindingId  String
+  finding    Finding @relation(fields: [FindingId] ,references: [uid])
+}
+
+model Investigation {
+  id         Int      @id @default(autoincrement())
+  uid        String   @unique 
+  investigationName String
+  reading          String?
+  investigation    InvestigationDocument[]
+  patientId   String?    
+  patient              Patient?  @relation(fields: [patientId], references: [uid])
+  eprescriptionId String?
+  eprescription  EPrescription? @relation(fields: [eprescriptionId], references: [uid])
+}
+
+model InvestigationDocument{
+  id         Int      @id @default(autoincrement())
+  uid        String   @unique 
+  fileName   String
+  fileType   String
+  fileUrl    String
+  fileSize   Int
+  uploadedAt DateTime @default(now())
+  investigationId String
+  investigation  Investigation @relation(fields: [investigationId], references: [uid])
+}
+
+model Diagnosis {
+   id         Int      @id @default(autoincrement())
+   uid        String   @unique 
+   diagnosisName String
+   reading          String?
+   diagnosis        DiagnosisDocument[]
+   patientId   String?    
+   patient              Patient?  @relation(fields: [patientId], references: [uid])
+   eprescriptionId String?
+   eprescription  EPrescription? @relation(fields: [eprescriptionId], references: [uid])
+}
+
+model DiagnosisDocument{
+  id         Int      @id @default(autoincrement())
+  uid        String   @unique
+  fileName   String
+  fileType   String
+  fileUrl    String
+  fileSize   Int 
+  diagnosisId String
+  diagnosis   Diagnosis  @relation(fields: [diagnosisId],references: [uid])
+}
+
+
+model Medicine {
+  id         Int      @id @default(autoincrement())
+  uid        String   @unique
+  dosegeType String
+  brand     String
+  chooseDose  String
+  regimen     String
+  consume    String
+  duration   String
+  period     String
+  startmedication String
+  MedicationNotes String
+  eprescriptionId String
+  eprescription  EPrescription @relation(fields: [eprescriptionId], references: [uid])
+}
+
+
+model LabTest {
+  id         Int      @id @default(autoincrement())
+  uid        String   @unique
+  labTestName String
+  eprescriptionId String
+  eprescription  EPrescription @relation(fields: [eprescriptionId], references: [uid])
+}
+
+model Advice {
+  id         Int      @id @default(autoincrement())
+  uid        String   @unique
+  AdviceName String
+  eprescriptionId String
+  eprescription  EPrescription @relation(fields: [eprescriptionId], references: [uid])
+}
+
+model Note {
+  id         Int      @id @default(autoincrement())
+  uid        String   @unique
+  note String
+  eprescriptionId String
+  eprescription  EPrescription @relation(fields: [eprescriptionId], references: [uid])
+}
+
+model FollowUp{
+  id         Int      @id @default(autoincrement())
+  uid        String   @unique
+  followUpDate String
+  sos         Boolean?  @default(false)
+  withReport  Boolean?  @default(false)
+  eprescriptionId  String       @unique                      
+  eprescription    EPrescription @relation("EPrescriptionFollowUp", fields: [eprescriptionId], references: [uid])
+}
+
+
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+
+
+enum Status {
+  active
+  inactive
+  deleted
+}
+
+
+enum Select {
+   active
+  inactive
+}
+
+enum PrescribtionSatus {
+  draft
+  success
+  delete
+}

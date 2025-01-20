@@ -1,0 +1,47 @@
+.dashmnu{
+    ul{
+        li{
+            a{
+                padding: 15px 20px;
+                border-radius: 8px;
+                display: flex;
+                width: 100%;
+                color: #222;
+                &.active{
+                    background-color: #0D52AF;
+                    color: #fff;
+                    svg{
+                        path{
+                            fill:#fff;
+                        }
+                    }
+                }
+            }
+            &:hover{
+                a{
+                    background-color: #0D52AF;
+                    color: #fff;
+                    svg{
+                        path{
+                            fill:#fff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.mobbtnbar{
+    ul{
+        li{
+            a{
+                color: #222;
+            }
+        }
+    }
+}
+.hdrlogo{
+    img{
+        max-width: 100%;
+    }
+}

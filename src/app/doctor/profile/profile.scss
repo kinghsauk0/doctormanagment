@@ -1,0 +1,98 @@
+.profiletabsec .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background: #ffffff;
+    border-color: #06b6d4;
+    color: #06b6d4;
+}
+.profiletabsec{
+    .p-tabview{
+        .p-tabview-nav{
+            background-color: transparent;
+            li{
+                .p-tabview-nav-link{
+                    background: transparent;
+                    color: #667085;
+                    font-weight: 400;
+                }
+                &.p-highlight{
+                    .p-tabview-nav-link{
+                        background: transparent;
+                        border-color: #1570EF;
+                        color: #000;
+                        font-weight: 600;
+                    } 
+                }
+            }
+        }
+    }
+    .p-tabview-panels{
+        margin-top: 15px;
+    }
+}
+.cliniclogoupload{
+    font-size: 0.875rem;
+    .p-button {
+        color: #ffffff;
+        background: #2E90FA;
+        border: 1px solid #2E90FA;
+        padding: 0.65625rem 1.09375rem;
+        font-size: 0.875rem;
+    }
+    .p-button-danger {
+        padding: 0;
+        background-color: #f00;
+    }
+    .p-fileupload .p-fileupload-row > div {
+        font-size: 14px;
+    }
+    .p-fileupload-file-badge {
+        margin: 0 0.5rem;
+    }
+}
+.docfileupload{
+    .custom-choose-btn{
+        .pi-images{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+    }
+}
+.docfileupload.signatureupload .p-fileupload-file-thumbnail{
+    width: 200px;
+}
+.dayscheck {
+    .p-button-group{
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        .p-button{
+            border: none !important;
+            padding: 5px 10px 5px 5px;
+            font-size: 12px;
+            border-radius: 20px;
+            background-color: #F2F4F7;
+            box-shadow: none !important;
+            i{
+                height: 16px;
+                width: 16px;
+                border-radius: 100%;
+                background-color: #fff;
+                line-height: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 8px;
+                border: 1px solid #1570EF;
+                color: #fff;
+                padding-top: 2px;
+            }
+            &.p-highlight{
+                background-color: #1570EF;
+                i{
+                    color: #1570EF;
+                }
+            }
+        }
+    }
+}
